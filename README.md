@@ -41,6 +41,7 @@ If a pattern doesn't actually blow up on the JS engine, the build fails. Every e
 | [`is-svg`](https://github.com/sindresorhus/is-svg) | CVE‑2021‑28092 | **exponential** | crafted `<!doctype svg …>` internal subset |
 | [`color-string`](https://github.com/Qix-/color-string) | CVE‑2021‑29060 | quadratic | long digit run in `hwb(…)` |
 | [`mime`](https://github.com/broofa/mime) | CVE‑2017‑16138 | quadratic | long extension‑less filename |
+| [`lodash`](https://github.com/lodash/lodash) | CVE‑2020‑28500 | quadratic | whitespace run passed to `trim`/`trimEnd`/`toNumber` |
 | _classic_ `(a+)+` | — | **exponential** | the canonical nested‑quantifier ReDoS |
 | _classic_ OWASP e‑mail | — | **exponential** | a copy‑pasted "validate e‑mail" regex |
 | _classic_ `(\w+\s?)*` | — | **exponential** | optional `\s?` inside a starred group |
