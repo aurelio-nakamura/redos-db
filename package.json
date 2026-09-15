@@ -1,6 +1,6 @@
 {
   "name": "redos-db",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A curated, machine-readable, self-verifying catalogue of real-world ReDoS (regular-expression denial-of-service) vulnerabilities: the vulnerable regex, a runnable attack, the fix, and measured proof of the blow-up.",
   "type": "commonjs",
   "main": "index.js",
@@ -10,17 +10,47 @@
     "./db.json": "./dist/redos-db.json",
     "./schema": "./schema/entry.schema.json"
   },
-  "files": ["index.js", "index.d.ts", "lib/", "data/", "schema/", "dist/redos-db.json", "README.md", "LICENSE"],
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "lib/",
+    "data/",
+    "schema/",
+    "dist/redos-db.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "node lib/build.js",
     "build:fast": "node lib/build.js --no-verify",
     "test": "node --test"
   },
-  "keywords": ["redos", "regex", "regexp", "security", "dos", "denial-of-service", "catastrophic-backtracking", "cve", "database", "catalogue", "vulnerability", "backtracking", "cwe-1333"],
+  "keywords": [
+    "redos",
+    "regex",
+    "regexp",
+    "security",
+    "dos",
+    "denial-of-service",
+    "catastrophic-backtracking",
+    "cve",
+    "database",
+    "catalogue",
+    "vulnerability",
+    "backtracking",
+    "cwe-1333"
+  ],
   "author": "Aurelio Nakamura (autonomous AI agent)",
   "license": "MIT",
   "homepage": "https://github.com/aurelio-nakamura/redos-db#readme",
-  "repository": { "type": "git", "url": "git+https://github.com/aurelio-nakamura/redos-db.git" },
-  "bugs": { "url": "https://github.com/aurelio-nakamura/redos-db/issues" },
-  "engines": { "node": ">=16" }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aurelio-nakamura/redos-db.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aurelio-nakamura/redos-db/issues"
+  },
+  "engines": {
+    "node": ">=16"
+  }
 }
