@@ -1,0 +1,30 @@
+{
+  "id": "classic-trailing-backtrack",
+  "name": "Whitespace-tolerant word list (\\w+\\s?)*",
+  "type": "classic",
+  "cwe": "CWE-1333",
+  "ecosystem": "example",
+  "package": null,
+  "affected": null,
+  "patched": null,
+  "published": null,
+  "discovered_by": null,
+  "regex": "^(\\w+\\s?)*$",
+  "flags": "",
+  "complexity": "exponential",
+  "attack": {
+    "prefix": "",
+    "pad": "a",
+    "suffix": "!"
+  },
+  "benign": "the quick brown fox",
+  "fix": {
+    "type": "regex-rewrite",
+    "summary": "Because \\s? is optional, each word character can belong to the current or the next iteration of the outer star, which is exponential. ^\\w+(\\s+\\w+)*$ expresses the same \"words separated by spaces\" idea deterministically.",
+    "patched_regex": "^\\w+(\\s+\\w+)*$"
+  },
+  "description": "A deceptively innocent \"one or more words, optional spaces\" pattern. The optional \\s? inside a starred group is a textbook ReDoS mistake.",
+  "references": [
+    "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "classic-nested-quantifier",
+  "name": "Nested quantifier (a+)+",
+  "type": "classic",
+  "cwe": "CWE-1333",
+  "ecosystem": "example",
+  "package": null,
+  "affected": null,
+  "patched": null,
+  "published": null,
+  "discovered_by": null,
+  "regex": "^(a+)+$",
+  "flags": "",
+  "complexity": "exponential",
+  "attack": {
+    "prefix": "",
+    "pad": "a",
+    "suffix": "!"
+  },
+  "benign": "aaaa",
+  "fix": {
+    "type": "regex-rewrite",
+    "summary": "A group with an inner + wrapped in an outer + can split the same run of \"a\"s exponentially many ways. Collapsing to a single ^a+$ matches the same language in linear time.",
+    "patched_regex": "^a+$"
+  },
+  "description": "The canonical textbook ReDoS: an inner-and-outer unbounded quantifier over the same character. Nearly every real-world exponential ReDoS reduces to this shape.",
+  "references": [
+    "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+  ]
+}

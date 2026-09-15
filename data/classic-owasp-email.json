@@ -1,0 +1,30 @@
+{
+  "id": "classic-owasp-email",
+  "name": "OWASP example e-mail validator",
+  "type": "classic",
+  "cwe": "CWE-1333",
+  "ecosystem": "example",
+  "package": null,
+  "affected": null,
+  "patched": null,
+  "published": null,
+  "discovered_by": null,
+  "regex": "^([a-zA-Z0-9])(([\\-.]|[_]+)?([a-zA-Z0-9]+))*(@){1}[a-z0-9]+[.]{1}(([a-z]{2,3})|([a-z]{2,3}[.]{1}[a-z]{2,3}))$",
+  "flags": "",
+  "complexity": "exponential",
+  "attack": {
+    "prefix": "a",
+    "pad": "a",
+    "suffix": "!"
+  },
+  "benign": "user@example.com",
+  "fix": {
+    "type": "guidance",
+    "summary": "The (([\\-.]|[_]+)?([a-zA-Z0-9]+))* group can match a run of letters in exponentially many ways. Prefer a linear pattern such as ^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$ and verify deliverability out-of-band.",
+    "patched_regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+  },
+  "description": "A widely copy-pasted \"validate an e-mail address\" regex from public regex libraries. It is exponential: a long local part with no @ makes the engine try every partition.",
+  "references": [
+    "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+  ]
+}

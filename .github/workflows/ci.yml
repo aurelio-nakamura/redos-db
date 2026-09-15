@@ -1,0 +1,30 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # No dependencies to install: redos-db is zero-dependency by design.
+      - name: Rebuild database (validates schema + measures every entry)
+        run: node lib/build.js
+      - name: Test (schema + measured blow-up + class label)
+        run: node --test
+      - name: Fail if dist/redos-db.json is stale
+        run: |
+          if ! git diff --quiet -- dist/redos-db.json; then
+            echo "dist/redos-db.json is out of date — run 'npm run build' and commit it." >&2
+            git --no-pager diff -- dist/redos-db.json | head -40
+            exit 1
+          fi

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/aurelio-nakamura/redos-db/schema/entry.schema.json",
+  "title": "redos-db entry",
+  "description": "One catalogued regular-expression denial-of-service (ReDoS) pattern.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "type", "ecosystem", "regex", "flags", "complexity", "attack", "benign", "fix", "description", "references"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-zA-Z0-9._-]+$" },
+    "name": { "type": "string" },
+    "type": { "enum": ["cve", "classic"] },
+    "cve": { "type": ["string", "null"] },
+    "ghsa": { "type": ["string", "null"] },
+    "cwe": { "type": ["string", "null"] },
+    "ecosystem": { "type": "string", "description": "npm, pypi, ... or 'example' for a teaching pattern" },
+    "package": { "type": ["string", "null"] },
+    "affected": { "type": ["string", "null"], "description": "affected version range" },
+    "patched": { "type": ["string", "null"] },
+    "published": { "type": ["string", "null"] },
+    "discovered_by": { "type": ["string", "null"] },
+    "regex": { "type": "string", "description": "the vulnerable pattern source, without / delimiters" },
+    "flags": { "type": "string" },
+    "complexity": { "enum": ["quadratic", "cubic", "exponential"] },
+    "attack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prefix", "pad", "suffix"],
+      "description": "a malicious input is prefix + pad.repeat(n) + suffix",
+      "properties": {
+        "prefix": { "type": "string" },
+        "pad": { "type": "string", "minLength": 1 },
+        "suffix": { "type": "string" },
+        "sizes": { "type": "array", "items": { "type": "integer" } }
+      }
+    },
+    "benign": { "type": "string", "description": "a valid input that matches/scans quickly" },
+    "fix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "summary"],
+      "properties": {
+        "type": { "enum": ["regex-rewrite", "algorithm-change", "guidance"] },
+        "summary": { "type": "string" },
+        "patched_regex": { "type": ["string", "null"] },
+        "commit": { "type": ["string", "null"] }
+      }
+    },
+    "description": { "type": "string" },
+    "references": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  }
+}
