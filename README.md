@@ -43,6 +43,7 @@ If a pattern doesn't actually blow up on the JS engine, the build fails. Every e
 | [`mime`](https://github.com/broofa/mime) | CVE‑2017‑16138 | quadratic | long extension‑less filename |
 | [`node-semver`](https://github.com/npm/node-semver) | CVE‑2022‑25883 | quadratic | mostly‑whitespace version/range string |
 | [`lodash`](https://github.com/lodash/lodash) | CVE‑2020‑28500 | quadratic | whitespace run passed to `trim`/`trimEnd`/`toNumber` |
+| [`marked`](https://github.com/markedjs/marked) | CVE‑2022‑21681 | quadratic | long run of escaped brackets `\[` in inline Markdown |
 | _classic_ `(a+)+` | — | **exponential** | the canonical nested‑quantifier ReDoS |
 | _classic_ OWASP e‑mail | — | **exponential** | a copy‑pasted "validate e‑mail" regex |
 | _classic_ `(\w+\s?)*` | — | **exponential** | optional `\s?` inside a starred group |
