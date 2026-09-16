@@ -41,7 +41,7 @@
       "additionalProperties": false,
       "required": ["type", "summary"],
       "properties": {
-        "type": { "enum": ["regex-rewrite", "algorithm-change", "guidance"] },
+        "type": { "enum": ["regex-rewrite", "algorithm-change", "input-limit", "guidance"] },
         "summary": { "type": "string" },
         "patched_regex": { "type": ["string", "null"] },
         "commit": { "type": ["string", "null"] }

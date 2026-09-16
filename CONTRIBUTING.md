@@ -14,7 +14,7 @@ Thank you for helping catalogue ReDoS vulnerabilities! The guiding rule:
    - `complexity`: `"quadratic"`, `"cubic"` or `"exponential"` — this is *checked* against the measured curve.
    - `attack`: `{ "prefix", "pad", "suffix" }`. A malicious input is `prefix + pad.repeat(n) + suffix`. Choose the `pad` that maximises backtracking. You may add `"sizes": [...]` to override the default schedule.
    - `benign`: an input that matches/scans quickly (used to prove the regex isn't just slow on everything).
-   - `fix`: `type` (`regex-rewrite` / `algorithm-change` / `guidance`), a `summary`, and where possible a `patched_regex` and/or `commit`.
+   - `fix`: `type` (`regex-rewrite` / `algorithm-change` / `input-limit` / `guidance`), a `summary`, and where possible a `patched_regex` and/or `commit`. Use `input-limit` when the upstream fix only caps input length rather than changing the vulnerable regex.
    - `references`: at least one authoritative link (NVD, GHSA, the fix commit).
 3. Rebuild and test:
 
