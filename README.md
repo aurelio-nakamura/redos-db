@@ -45,6 +45,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`lodash`](https://github.com/lodash/lodash) | CVE‑2020‑28500 | quadratic | whitespace run passed to `trim`/`trimEnd`/`toNumber` |
 | [`marked`](https://github.com/markedjs/marked) | CVE‑2022‑21681 | quadratic | long run of escaped brackets `\[` in inline Markdown |
 | [`glob-parent`](https://github.com/gulpjs/glob-parent) | CVE‑2020‑28469 | quadratic | brace/bracket enclosure + long unclosed run |
+| [`hosted-git-info`](https://github.com/npm/hosted-git-info) | CVE‑2021‑23362 | quadratic | shortcut URL with a long authority run and no `@`/`/` |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | _classic_ `(a+)+` | — | **exponential** | the canonical nested‑quantifier ReDoS |
 | _classic_ OWASP e‑mail | — | **exponential** | a copy‑pasted "validate e‑mail" regex |
