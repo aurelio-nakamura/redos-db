@@ -17,7 +17,7 @@ from multiprocessing import Process, Queue
 
 BUDGET_MS = 2000
 BENIGN_MAX_MS = 30
-BLOWUP_MS = 150
+BLOWUP_FLOOR_MS = 15  # absolute noise floor; real threshold is 20x the benign time
 
 SIZES = {
     "exponential": [14, 18, 22, 26, 30],
@@ -85,24 +85,55 @@ def build_input(attack, n):
     return (attack.get("prefix") or "") + (attack.get("pad") or "") * n + (attack.get("suffix") or "")
 
 
+def loglog_slope(pts):
+    """Least-squares slope of log(ms) vs log(n) over the completed points. For a
+    pattern that costs c*n^p this estimates the exponent p; a regression over the
+    whole curve is far more stable against scheduler/GC/process-spawn noise on
+    shared CI runners than a single adjacent-pair ratio (which used to flake)."""
+    if len(pts) < 2:
+        return None
+    import math
+    xs = [math.log(p["n"]) for p in pts]
+    ys = [math.log(p["ms"]) for p in pts]
+    n = len(xs)
+    mx = sum(xs) / n
+    my = sum(ys) / n
+    num = sum((xs[i] - mx) * (ys[i] - my) for i in range(n))
+    den = sum((xs[i] - mx) ** 2 for i in range(n))
+    return None if den == 0 else num / den
+
+
 def classify(points):
+    # Use only points that actually completed (a budget-capped timeout would
+    # understate the true growth ratio).
     usable = [p for p in points if not p["timedOut"] and p["ms"] > 1]
-    if len(usable) < 2:
-        return "unknown"
-    a, b = usable[-2], usable[-1]
-    size_ratio = b["n"] / a["n"]
-    time_ratio = b["ms"] / a["ms"]
-    if 1.9 <= size_ratio <= 2.1:
-        if time_ratio > 12:
+    any_timeout = any(p["timedOut"] for p in points)
+
+    # Exponential schedule uses small +4 pump steps: a tiny increase in input
+    # length causes a huge multiplicative jump in time (or blows the budget).
+    span = (usable[-1]["n"] - usable[0]["n"]) if usable else float("inf")
+    if span <= 40:
+        if len(usable) >= 2 and usable[-1]["ms"] / usable[-2]["ms"] >= 3:
+            return "exponential"
+        if any_timeout:
             return "exponential-or-worse"
-        if time_ratio >= 5.5:
-            return "cubic"
-        if time_ratio >= 2.8:
-            return "quadratic"
-        return "sub-quadratic"
-    if b["n"] - a["n"] <= 8 and time_ratio >= 3:
-        return "exponential"
-    return "polynomial"
+        if len(usable) < 2:
+            return "unknown"
+        return "polynomial"
+
+    # Polynomial schedule (wide n range): estimate the exponent by regression.
+    if len(usable) < 2:
+        return "exponential-or-worse" if any_timeout else "unknown"
+    p = loglog_slope(usable)
+    if p is None:
+        return "unknown"
+    if p >= 3.6:
+        return "exponential-or-worse"
+    if p >= 2.6:
+        return "cubic"
+    if p >= 1.55:
+        return "quadratic"
+    return "sub-quadratic"
 
 
 def verify_entry(entry):
@@ -139,11 +170,13 @@ def verify_entry(entry):
 
     last = points[-1]
     last_ms = BUDGET_MS if last["timedOut"] else last["ms"]
-    blew_up = last["timedOut"] or last_ms >= BLOWUP_MS
-    first_ms = BUDGET_MS if points[0]["timedOut"] else max(points[0]["ms"], 0.05)
-    superlinear = len(points) >= 2 and (last["timedOut"] or last_ms / first_ms >= last["n"] / points[0]["n"])
-
     empirical = classify([{**p, "ms": BUDGET_MS if p["timedOut"] else p["ms"]} for p in points])
+    # Blow-up is judged against the *benign* time on the SAME machine (>=20x, with
+    # a tiny absolute floor above timer noise), never an absolute wall-clock bar,
+    # so a merely-quadratic pattern that finishes fast on a quick CI runner is
+    # still recognised. Super-linearity comes from the scale-invariant slope.
+    blew_up = last["timedOut"] or last_ms >= max(BLOWUP_FLOOR_MS, 20 * max(bms, 0.05))
+    superlinear = empirical in ("quadratic", "cubic", "exponential", "exponential-or-worse")
     declared_is_exp = complexity == "exponential"
     empirical_is_exp = empirical in ("exponential", "exponential-or-worse")
     class_agrees = empirical_is_exp if declared_is_exp else (
