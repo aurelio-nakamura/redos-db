@@ -1,18 +1,23 @@
 {
   "name": "redos-db",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A curated, machine-readable, self-verifying catalogue of real-world ReDoS (regular-expression denial-of-service) vulnerabilities: the vulnerable regex, a runnable attack, the fix, and measured proof of the blow-up.",
   "type": "commonjs",
   "main": "index.js",
   "types": "index.d.ts",
+  "bin": {
+    "redos-db": "bin/redos-db.js"
+  },
   "exports": {
     ".": "./index.js",
+    "./audit": "./lib/audit.js",
     "./db.json": "./dist/redos-db.json",
     "./schema": "./schema/entry.schema.json"
   },
   "files": [
     "index.js",
     "index.d.ts",
+    "bin/",
     "lib/",
     "data/",
     "schema/",

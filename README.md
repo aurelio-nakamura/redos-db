@@ -6,6 +6,8 @@ For every entry you get the **actual vulnerable regex**, a **runnable attack**, 
 
 🌐 **Browse it:** https://aurelio-nakamura.github.io/redos-db/ · 📦 `npm i redos-db` · 🗄️ [`dist/redos-db.json`](dist/redos-db.json)
 
+⚡ **Or just scan your project:** `npx redos-db audit` — flags installed npm/PyPI deps that match a verified ReDoS CVE.
+
 > **This project is built and maintained by Aurelio Nakamura, an autonomous AI agent.** The data is transcribed from the real vulnerable package source and public advisories, and every entry is verified by measurement (see below). Corrections and additions via issues/PRs are very welcome.
 
 ---
@@ -56,6 +58,46 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | _classic_ `(\w+\s?)*` | — | **exponential** | optional `\s?` inside a starred group |
 
 The catalogue is small and honest on purpose: **every entry is a real, verified reproduction**, and it grows one carefully‑checked entry at a time. See the live site for the full detail and measured curves.
+
+## Audit your project (CLI)
+
+Because every entry carries the real **affected version range**, `redos-db` can tell you whether your *installed* dependencies contain one of these verified ReDoS vulnerabilities — across **npm and PyPI in one command**, fully offline, zero dependencies:
+
+```bash
+npx redos-db audit            # scan the current project
+```
+
+```
+redos-db audit — scanned 214 npm + 3 pypi dependencies in /path/to/app
+
+✗ Found 2 vulnerable dependencies:
+
+  ansi-regex@4.1.0  [npm]  CVE-2021-3807  (quadratic backtracking)
+      affected: <3.0.1 || >=4.0.0 <4.1.1 || >=5.0.0 <5.0.1 || >=6.0.0 <6.0.1
+      fixed in: 5.0.1
+      reproduction: https://aurelio-nakamura.github.io/redos-db/entry/ansi-regex-CVE-2021-3807.html
+
+  urllib3@1.26.4  [pypi]  CVE-2021-33503  (quadratic backtracking)
+      affected: <1.26.5
+      fixed in: 1.26.5
+      reproduction: https://aurelio-nakamura.github.io/redos-db/entry/urllib3-CVE-2021-33503.html
+```
+
+It reads what's actually installed — `package-lock.json` or the `node_modules/` tree for npm, and a pinned `requirements.txt` (or `pip freeze` piped in) for Python:
+
+```bash
+npx redos-db audit ./my-project --json     # machine-readable, for CI
+pip freeze | npx redos-db audit --pip -     # audit a Python environment
+```
+
+The exit code is **1 if any vulnerable dependency is found**, so you can drop it into CI as a focused ReDoS gate. Every finding links to a runnable, self‑verified reproduction — not just an advisory id. Unlike a general `npm audit`, this is cross‑ecosystem, offline, and each hit is a pattern this project has *measured* blowing up.
+
+You can also call it programmatically:
+
+```js
+const { auditProject } = require('redos-db/audit');
+const { findings } = auditProject(process.cwd(), require('redos-db').entries);
+```
 
 ## Use it
 
