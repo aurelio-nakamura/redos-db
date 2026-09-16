@@ -48,6 +48,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`hosted-git-info`](https://github.com/npm/hosted-git-info) | CVE‑2021‑23362 | quadratic | shortcut URL with a long authority run and no `@`/`/` |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | 🐍 [`urllib3`](https://github.com/urllib3/urllib3) | CVE‑2021‑33503 | quadratic | URL authority with many `@` characters (Python `re`) |
+| 🐍 [`Django`](https://github.com/django/django) | CVE‑2019‑14232 | quadratic | long run of `&` in HTML truncated by `truncatewords_html` (Python `re`) |
 | _classic_ `(a+)+` | — | **exponential** | the canonical nested‑quantifier ReDoS |
 | _classic_ OWASP e‑mail | — | **exponential** | a copy‑pasted "validate e‑mail" regex |
 | _classic_ `(\w+\s?)*` | — | **exponential** | optional `\s?` inside a starred group |
