@@ -44,6 +44,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`node-semver`](https://github.com/npm/node-semver) | CVE‑2022‑25883 | quadratic | mostly‑whitespace version/range string |
 | [`lodash`](https://github.com/lodash/lodash) | CVE‑2020‑28500 | quadratic | whitespace run passed to `trim`/`trimEnd`/`toNumber` |
 | [`marked`](https://github.com/markedjs/marked) | CVE‑2022‑21681 | quadratic | long run of escaped brackets `\[` in inline Markdown |
+| [`glob-parent`](https://github.com/gulpjs/glob-parent) | CVE‑2020‑28469 | quadratic | brace/bracket enclosure + long unclosed run |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | _classic_ `(a+)+` | — | **exponential** | the canonical nested‑quantifier ReDoS |
 | _classic_ OWASP e‑mail | — | **exponential** | a copy‑pasted "validate e‑mail" regex |
