@@ -16,7 +16,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       # No dependencies to install: redos-db is zero-dependency by design.
+      # Python-engine entries are verified against CPython's own `re` module.
       - name: Rebuild database (validates schema + measures every entry)
         run: node lib/build.js
       - name: Test (schema + measured blow-up + class label)

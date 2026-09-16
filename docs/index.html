@@ -32,6 +32,7 @@
   .row1{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .name{font-size:18px;font-weight:650}
   .badge{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+  .b-engine{color:#7aa2f7;border-color:#2b3a67}
   .b-exp{color:var(--red);border-color:#5b2222}.b-quad{color:var(--amber);border-color:#5a4a1e}.b-cubic{color:var(--acc);border-color:#5a3a1e}
   .b-cve{color:var(--blu);border-color:#20406b}.b-classic{color:var(--grn);border-color:#1e502e}
   .desc{color:#c9d4de;margin:10px 0}
@@ -96,6 +97,7 @@ function card(e){
     +'<div class="row1"><span class="name">'+esc(e.name)+'</span>'
     +(e.cve?badge('b-cve',e.cve):(e.type==='classic'?badge('b-classic','classic'):''))
     +badge(cxcls,e.complexity)
+    +((e.engine&&e.engine!=='javascript')?badge('b-engine',e.engine):'')
     +'</div>'
     +'<div class="desc">'+esc(e.description)+'</div>'
     +'<div class="re">/'+esc(e.regex)+'/'+esc(e.flags)+'</div>'

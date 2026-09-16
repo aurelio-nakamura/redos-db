@@ -14,6 +14,7 @@
     "ghsa": { "type": ["string", "null"] },
     "cwe": { "type": ["string", "null"] },
     "ecosystem": { "type": "string", "description": "npm, pypi, ... or 'example' for a teaching pattern" },
+    "engine": { "enum": ["javascript", "python"], "default": "javascript", "description": "regex engine the pattern ships on and is verified against" },
     "package": { "type": ["string", "null"] },
     "affected": { "type": ["string", "null"], "description": "affected version range" },
     "patched": { "type": ["string", "null"] },

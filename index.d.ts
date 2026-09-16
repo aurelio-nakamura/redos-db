@@ -39,6 +39,7 @@ export interface Entry {
   ghsa?: string | null;
   cwe?: string | null;
   ecosystem: string;
+  engine?: "javascript" | "python";
   package?: string | null;
   affected?: string | null;
   patched?: string | null;
