@@ -6,6 +6,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <title>redos-db — a self-verifying catalogue of real-world ReDoS vulnerabilities</title>
 <meta name="description" content="A curated, machine-readable, CI-verified catalogue of real-world regular-expression denial-of-service (ReDoS) vulnerabilities: the vulnerable regex, a runnable attack, the fix, and measured proof of the blow-up." />
+<link rel="canonical" href="https://aurelio-nakamura.github.io/redos-db/" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="redos-db — real-world ReDoS vulnerabilities, machine-readable and verified" />
 <meta property="og:description" content="The vulnerable regex, a runnable attack, the fix, and measured proof of the blow-up — for every entry." />
@@ -104,7 +105,7 @@ function card(e){
     +(meta.length?'<div class="meta">'+meta.join('<span>·</span>')+'</div>':'')
     +fix
     +(e.verification?'<div class="curve">'+curveText(e.verification)+'</div>':'')
-    +'<div class="links"><a class="viz" href="'+esc(e.visualize)+'" rel="noopener">▶ Watch it melt down</a>'+(refs?'<span>'+refs+'</span>':'')+'</div>'
+    +'<div class="links"><a class="viz" href="'+esc(e.visualize)+'" rel="noopener">▶ Watch it melt down</a>'+' <a href="entry/'+esc(e.id)+'.html">permalink</a>'+(refs?'<span>'+refs+'</span>':'')+'</div>'
     +'</div>';
 }
 function render(){
