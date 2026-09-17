@@ -53,6 +53,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`moment`](https://github.com/moment/moment) | CVE‑2016‑4055 | quadratic | long digit run with no colon in `moment.duration()` (unanchored ASP.NET regex) |
 | [`ua-parser-js`](https://github.com/faisalman/ua-parser-js) | CVE‑2021‑27292 | quadratic | long whitespace run in a device‑detection rule (`.*` vs `\s+build`) |
 | [`axios`](https://github.com/axios/axios) | CVE‑2021‑3749 | quadratic | long whitespace run ending in a non‑space in the internal `trim` (`\s*$`) |
+| [`debug`](https://github.com/debug-js/debug) | CVE‑2017‑16137 | quadratic | long whitespace run with no newline in the `%o` formatter (`\s*\n\s*`) |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | 🐍 [`urllib3`](https://github.com/urllib3/urllib3) | CVE‑2021‑33503 | quadratic | URL authority with many `@` characters (Python `re`) |
 | 🐍 [`Django`](https://github.com/django/django) | CVE‑2019‑14232 | quadratic | long run of `&` in HTML truncated by `truncatewords_html` (Python `re`) |
