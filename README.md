@@ -99,7 +99,7 @@ The exit code is **1 if any vulnerable dependency is found**, so you can drop it
 There's a composite action, so it's one step in a workflow — no install, works right after checkout by reading your lockfile:
 
 ```yaml
-- uses: aurelio-nakamura/redos-db@v0.13.0
+- uses: aurelio-nakamura/redos-db@v1
   with:
     path: .                 # directory to scan (default ".")
     fail-on-findings: true  # set "false" to report without failing the job
