@@ -31,6 +31,9 @@ runs:
     - id: audit
       shell: bash
       run: |
+        # Disable errexit: `audit` intentionally exits non-zero when it finds a
+        # vulnerable dependency, and we handle that ourselves below.
+        set +e
         set -uo pipefail
         args=(audit "${{ inputs.path }}")
         pipe=""
