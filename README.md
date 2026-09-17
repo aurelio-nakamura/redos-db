@@ -51,6 +51,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`trim-newlines`](https://github.com/sindresorhus/trim-newlines) | CVE‑2021‑33623 | quadratic | long run of newlines ending in a non‑newline char |
 | [`ms`](https://github.com/vercel/ms) | CVE‑2015‑8315 | quadratic | long digit run in a duration string (fixed by input‑length cap, not a regex change) |
 | [`moment`](https://github.com/moment/moment) | CVE‑2016‑4055 | quadratic | long digit run with no colon in `moment.duration()` (unanchored ASP.NET regex) |
+| [`ua-parser-js`](https://github.com/faisalman/ua-parser-js) | CVE‑2021‑27292 | quadratic | long whitespace run in a device‑detection rule (`.*` vs `\s+build`) |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | 🐍 [`urllib3`](https://github.com/urllib3/urllib3) | CVE‑2021‑33503 | quadratic | URL authority with many `@` characters (Python `re`) |
 | 🐍 [`Django`](https://github.com/django/django) | CVE‑2019‑14232 | quadratic | long run of `&` in HTML truncated by `truncatewords_html` (Python `re`) |
