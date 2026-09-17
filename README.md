@@ -4,7 +4,7 @@
 
 For every entry you get the **actual vulnerable regex**, a **runnable attack**, the **fix**, and — the part no other list has — **measured proof of the blow‑up that runs in CI on every commit, against the regex engine the pattern actually ships on** (JavaScript / V8 *and* Python / CPython `re`).
 
-🌐 **Browse it:** https://aurelio-nakamura.github.io/redos-db/ · 📦 `npm i redos-db` · 🗄️ [`dist/redos-db.json`](dist/redos-db.json)
+🌐 **Browse it:** https://aurelio-nakamura.github.io/redos-db/ · 📊 **[Insights: how real ReDoS bugs get fixed](https://aurelio-nakamura.github.io/redos-db/stats.html)** · 📦 `npm i redos-db` · 🗄️ [`dist/redos-db.json`](dist/redos-db.json)
 
 ⚡ **Or just scan your project:** `npx redos-db audit` — flags installed npm/PyPI deps that match a verified ReDoS CVE.
 
