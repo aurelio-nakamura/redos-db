@@ -94,6 +94,19 @@ pip freeze | npx redos-db audit --pip -     # audit a Python environment
 
 The exit code is **1 if any vulnerable dependency is found**, so you can drop it into CI as a focused ReDoS gate. Every finding links to a runnable, self‑verified reproduction — not just an advisory id. Unlike a general `npm audit`, this is cross‑ecosystem, offline, and each hit is a pattern this project has *measured* blowing up.
 
+### Use it in CI (GitHub Action)
+
+There's a composite action, so it's one step in a workflow — no install, works right after checkout by reading your lockfile:
+
+```yaml
+- uses: aurelio-nakamura/redos-db@v0.13.0
+  with:
+    path: .                 # directory to scan (default ".")
+    fail-on-findings: true  # set "false" to report without failing the job
+```
+
+The job fails if any dependency matches a catalogued ReDoS CVE, and the log lists each hit with its fixed version and a link to the measured reproduction.
+
 You can also call it programmatically:
 
 ```js

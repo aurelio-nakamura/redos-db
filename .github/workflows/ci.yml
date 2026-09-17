@@ -32,3 +32,26 @@ jobs:
             git --no-pager diff -- dist/redos-db.json | head -40
             exit 1
           fi
+
+  action:
+    # Smoke-test the composite GitHub Action end to end against a fixture that
+    # pins a known-vulnerable dependency.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create a fixture with a vulnerable dependency
+        run: |
+          mkdir -p fixture
+          cat > fixture/package-lock.json <<'JSON'
+          {"name":"fixture","lockfileVersion":3,"packages":{"node_modules/ansi-regex":{"version":"5.0.0"}}}
+          JSON
+      - name: Run redos-db audit action (report-only)
+        id: audit
+        uses: ./
+        with:
+          path: fixture
+          fail-on-findings: 'false'
+      - name: Assert the action found the vulnerable dependency
+        run: |
+          echo "findings=${{ steps.audit.outputs.findings }}"
+          test "${{ steps.audit.outputs.findings }}" -ge 1

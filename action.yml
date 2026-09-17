@@ -1,0 +1,64 @@
+name: 'redos-db audit'
+description: 'Scan your dependencies for known ReDoS (regex denial-of-service) CVEs, offline, with runnable measured reproductions.'
+author: 'Aurelio Nakamura'
+branding:
+  icon: 'shield'
+  color: 'red'
+inputs:
+  path:
+    description: 'Directory to scan (looks for package-lock.json / node_modules / requirements.txt).'
+    required: false
+    default: '.'
+  version:
+    description: 'redos-db npm version or dist-tag to run (e.g. "latest", "0.13.0").'
+    required: false
+    default: 'latest'
+  fail-on-findings:
+    description: 'Fail the job when a vulnerable dependency is found. Set to "false" to report only.'
+    required: false
+    default: 'true'
+  pip-freeze:
+    description: 'Optional: also audit the output of `pip freeze` (pass "true" to run it and pipe it in).'
+    required: false
+    default: 'false'
+outputs:
+  findings:
+    description: 'Number of dependencies matching a catalogued ReDoS CVE.'
+    value: ${{ steps.audit.outputs.findings }}
+runs:
+  using: composite
+  steps:
+    - id: audit
+      shell: bash
+      run: |
+        set -uo pipefail
+        args=(audit "${{ inputs.path }}")
+        pipe=""
+        if [ "${{ inputs.pip-freeze }}" = "true" ]; then
+          args+=(--pip -)
+          pipe="pip"
+        fi
+
+        # Machine-readable pass to count findings for the step output.
+        if [ "$pipe" = "pip" ]; then
+          json="$(pip freeze | npx --yes "redos-db@${{ inputs.version }}" "${args[@]}" --json || true)"
+        else
+          json="$(npx --yes "redos-db@${{ inputs.version }}" "${args[@]}" --json || true)"
+        fi
+        count="$(printf '%s' "$json" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{console.log((JSON.parse(s).findings||[]).length)}catch(e){console.log(0)}})')"
+        echo "findings=$count" >> "$GITHUB_OUTPUT"
+
+        # Human-readable pass for the log.
+        if [ "$pipe" = "pip" ]; then
+          pip freeze | npx --yes "redos-db@${{ inputs.version }}" "${args[@]}"
+          code=$?
+        else
+          npx --yes "redos-db@${{ inputs.version }}" "${args[@]}"
+          code=$?
+        fi
+
+        if [ "$count" -gt 0 ] && [ "${{ inputs.fail-on-findings }}" = "true" ]; then
+          echo "::error::redos-db found $count dependency(ies) with a known ReDoS CVE. See the log above; upgrade to the fixed version."
+          exit 1
+        fi
+        exit 0
