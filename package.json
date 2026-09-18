@@ -1,6 +1,6 @@
 {
   "name": "redos-db",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "A curated, machine-readable, self-verifying catalogue of real-world ReDoS (regular-expression denial-of-service) vulnerabilities: the vulnerable regex, a runnable attack, the fix, and measured proof of the blow-up.",
   "type": "commonjs",
   "main": "index.js",

@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <title>How real-world ReDoS bugs actually get fixed | redos-db</title>
-<meta name="description" content="Analysis of 21 real-world ReDoS CVEs from the redos-db catalogue: how catastrophic-backtracking bugs actually get fixed (regex rewrite vs. algorithm change vs. input cap), what complexity they blow up at (79% are quadratic, not exponential), and which ecosystems they hit. Every figure is derived from CI-verified data." />
+<meta name="description" content="Analysis of 22 real-world ReDoS CVEs from the redos-db catalogue: how catastrophic-backtracking bugs actually get fixed (regex rewrite vs. algorithm change vs. input cap), what complexity they blow up at (80% are quadratic, not exponential), and which ecosystems they hit. Every figure is derived from CI-verified data." />
 <link rel="canonical" href="https://aurelio-nakamura.github.io/redos-db/stats.html" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="How real-world ReDoS bugs actually get fixed" />
-<meta property="og:description" content="Analysis of 21 real-world ReDoS CVEs from the redos-db catalogue: how catastrophic-backtracking bugs actually get fixed (regex rewrite vs. algorithm change vs. input cap), what complexity they blow up at (79% are quadratic, not exponential), and which ecosystems they hit. Every figure is derived from CI-verified data." />
+<meta property="og:description" content="Analysis of 22 real-world ReDoS CVEs from the redos-db catalogue: how catastrophic-backtracking bugs actually get fixed (regex rewrite vs. algorithm change vs. input cap), what complexity they blow up at (80% are quadratic, not exponential), and which ecosystems they hit. Every figure is derived from CI-verified data." />
 <meta property="og:url" content="https://aurelio-nakamura.github.io/redos-db/stats.html" />
 <meta name="twitter:card" content="summary" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How real-world ReDoS bugs actually get fixed","description":"Analysis of 21 real-world ReDoS CVEs from the redos-db catalogue: how catastrophic-backtracking bugs actually get fixed (regex rewrite vs. algorithm change vs. input cap), what complexity they blow up at (79% are quadratic, not exponential), and which ecosystems they hit. Every figure is derived from CI-verified data.","url":"https://aurelio-nakamura.github.io/redos-db/stats.html","author":{"@type":"Person","name":"Aurelio Nakamura"},"isPartOf":{"@type":"Dataset","name":"redos-db","url":"https://aurelio-nakamura.github.io/redos-db/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How real-world ReDoS bugs actually get fixed","description":"Analysis of 22 real-world ReDoS CVEs from the redos-db catalogue: how catastrophic-backtracking bugs actually get fixed (regex rewrite vs. algorithm change vs. input cap), what complexity they blow up at (80% are quadratic, not exponential), and which ecosystems they hit. Every figure is derived from CI-verified data.","url":"https://aurelio-nakamura.github.io/redos-db/stats.html","author":{"@type":"Person","name":"Aurelio Nakamura"},"isPartOf":{"@type":"Dataset","name":"redos-db","url":"https://aurelio-nakamura.github.io/redos-db/"}}</script>
 <style>:root{--bg:#0e1116;--panel:#161b22;--line:#232a33;--fg:#e6edf3;--mut:#8b98a5;--acc:#f0883e;--red:#f85149;--amber:#e3b341;--grn:#3fb950;--blu:#58a6ff;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
@@ -65,52 +65,52 @@ ul{margin:6px 0;padding-left:20px}li{margin:3px 0}
 <div class="wrap">
 <p class="crumb"><a href="./">redos-db</a> &rsaquo; insights</p>
 <h1>How real-world ReDoS bugs actually get fixed</h1>
-<p class="sub">A data view over 24 verified catastrophic-backtracking patterns (21 real CVEs)</p>
+<p class="sub">A data view over 25 verified catastrophic-backtracking patterns (22 real CVEs)</p>
 
 <div class="big">
-  <div class="bigcard"><div class="bignum">21</div><div class="biglbl">real CVEs</div></div>
-  <div class="bigcard"><div class="bignum">79%</div><div class="biglbl">quadratic (n²)</div></div>
-  <div class="bigcard"><div class="bignum">71%</div><div class="biglbl">fixed by regex rewrite</div></div>
-  <div class="bigcard"><div class="bignum">18+3</div><div class="biglbl">npm + PyPI</div></div>
+  <div class="bigcard"><div class="bignum">22</div><div class="biglbl">real CVEs</div></div>
+  <div class="bigcard"><div class="bignum">80%</div><div class="biglbl">quadratic (n²)</div></div>
+  <div class="bigcard"><div class="bignum">72%</div><div class="biglbl">fixed by regex rewrite</div></div>
+  <div class="bigcard"><div class="bignum">19+3</div><div class="biglbl">npm + PyPI</div></div>
 </div>
 
 <h2>Takeaways</h2>
-<ul class="take"><li><strong>Most ReDoS is quadratic, not exponential.</strong> 19 of 24 catalogued patterns (79%) blow up at O(n²) — bad enough to hang a request thread, but slower to reveal itself in testing than the textbook exponential <span class="mono">(a+)+</span> case.</li><li><strong>Most fixes just remove ambiguity in the regex.</strong> 17 of 24 (71%) were fixed by rewriting the pattern so a crafted input can only be matched one way — no algorithm change, no input cap.</li><li><strong>Some real fixes don't touch the regex at all.</strong> A few well-known packages shipped an input-length cap or replaced the regex with plain string parsing — a useful reminder that "rewrite the regex" isn't the only mitigation.</li><li><strong>It spans ecosystems.</strong> 18 npm and 3 PyPI CVEs here, each verified on the engine it actually ships on (V8 <span class="mono">RegExp</span> / CPython <span class="mono">re</span>).</li></ul>
+<ul class="take"><li><strong>Most ReDoS is quadratic, not exponential.</strong> 20 of 25 catalogued patterns (80%) blow up at O(n²) — bad enough to hang a request thread, but slower to reveal itself in testing than the textbook exponential <span class="mono">(a+)+</span> case.</li><li><strong>Most fixes just remove ambiguity in the regex.</strong> 18 of 25 (72%) were fixed by rewriting the pattern so a crafted input can only be matched one way — no algorithm change, no input cap.</li><li><strong>Some real fixes don't touch the regex at all.</strong> A few well-known packages shipped an input-length cap or replaced the regex with plain string parsing — a useful reminder that "rewrite the regex" isn't the only mitigation.</li><li><strong>It spans ecosystems.</strong> 19 npm and 3 PyPI CVEs here, each verified on the engine it actually ships on (V8 <span class="mono">RegExp</span> / CPython <span class="mono">re</span>).</li></ul>
 
 <h2>How they get fixed</h2>
 <p class="desc">Grouped by the kind of change the maintainers actually shipped. Each is a link to the entry, where you can read the exact vulnerable regex, a runnable attack string, the fix commit, and a measured timing curve.</p>
 <div class="fixcard">
-  <h3>Rewrite the regex to remove the ambiguity <span class="count">17 of 24 · 71%</span></h3>
+  <h3>Rewrite the regex to remove the ambiguity <span class="count">18 of 25 · 72%</span></h3>
   <p class="desc">Constrain the overlapping sub-patterns (e.g. make an inner quantifier possessive-equivalent, split an ambiguous alternation, or anchor the match) so a crafted input can only be partitioned one way.</p>
-  <div class="chips"><a class="chip" href="entry/ansi-regex-CVE-2021-3807.html">ansi-regex</a> <a class="chip" href="entry/classic-nested-quantifier.html">Nested quantifier (a+)+</a> <a class="chip" href="entry/classic-trailing-backtrack.html">Whitespace-tolerant word list (\w+\s?)*</a> <a class="chip" href="entry/color-string-CVE-2021-29060.html">color-string</a> <a class="chip" href="entry/django-CVE-2019-14232.html">Django (Truncator / truncatewords_html)</a> <a class="chip" href="entry/glob-parent-CVE-2020-28469.html">glob-parent</a> <span class="more">+11 more</span></div>
+  <div class="chips"><a class="chip" href="entry/ansi-regex-CVE-2021-3807.html">ansi-regex</a> <a class="chip" href="entry/classic-nested-quantifier.html">Nested quantifier (a+)+</a> <a class="chip" href="entry/classic-trailing-backtrack.html">Whitespace-tolerant word list (\w+\s?)*</a> <a class="chip" href="entry/color-string-CVE-2021-29060.html">color-string</a> <a class="chip" href="entry/cross-spawn-CVE-2024-21538.html">cross-spawn</a> <a class="chip" href="entry/django-CVE-2019-14232.html">Django (Truncator / truncatewords_html)</a> <span class="more">+12 more</span></div>
 </div>
 <div class="fixcard">
-  <h3>Replace the regex with a non-regex algorithm <span class="count">5 of 24 · 21%</span></h3>
+  <h3>Replace the regex with a non-regex algorithm <span class="count">5 of 25 · 20%</span></h3>
   <p class="desc">Parse the input with explicit string operations (split / rpartition / a hand-written scan) instead of a backtracking regex.</p>
   <div class="chips"><a class="chip" href="entry/axios-CVE-2021-3749.html">axios</a> <a class="chip" href="entry/debug-CVE-2017-16137.html">debug</a> <a class="chip" href="entry/mime-CVE-2017-16138.html">mime</a> <a class="chip" href="entry/trim-newlines-CVE-2021-33623.html">trim-newlines</a> <a class="chip" href="entry/urllib3-CVE-2021-33503.html">urllib3 (URL authority parser)</a></div>
 </div>
 <div class="fixcard">
-  <h3>Guidance / teaching pattern (no single upstream fix) <span class="count">1 of 24 · 4%</span></h3>
+  <h3>Guidance / teaching pattern (no single upstream fix) <span class="count">1 of 25 · 4%</span></h3>
   <p class="desc">Classic textbook patterns kept for teaching; the &quot;fix&quot; is the well-known safe rewrite.</p>
   <div class="chips"><a class="chip" href="entry/classic-owasp-email.html">OWASP example e-mail validator</a></div>
 </div>
 <div class="fixcard">
-  <h3>Cap the input length before matching <span class="count">1 of 24 · 4%</span></h3>
+  <h3>Cap the input length before matching <span class="count">1 of 25 · 4%</span></h3>
   <p class="desc">Leave the regex untouched but reject inputs over a fixed length — a pragmatic mitigation that bounds the worst case.</p>
   <div class="chips"><a class="chip" href="entry/ms-CVE-2015-8315.html">ms (millisecond duration parser)</a></div>
 </div>
 
 <h2>What complexity they blow up at</h2>
-<table class="stat"><tr><td class="k">quadratic</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:79%"></div><span class="barlabel">19 · 79%</span></div></td></tr><tr><td class="k">exponential</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:21%"></div><span class="barlabel">5 · 21%</span></div></td></tr></table>
+<table class="stat"><tr><td class="k">quadratic</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:80%"></div><span class="barlabel">20 · 80%</span></div></td></tr><tr><td class="k">exponential</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:20%"></div><span class="barlabel">5 · 20%</span></div></td></tr></table>
 
 <h2>By ecosystem</h2>
-<table class="stat"><tr><td class="k">npm</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:75%"></div><span class="barlabel">18 · 75%</span></div></td></tr><tr><td class="k">teaching example</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:13%"></div><span class="barlabel">3 · 13%</span></div></td></tr><tr><td class="k">PyPI</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:13%"></div><span class="barlabel">3 · 13%</span></div></td></tr></table>
+<table class="stat"><tr><td class="k">npm</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:76%"></div><span class="barlabel">19 · 76%</span></div></td></tr><tr><td class="k">teaching example</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:12%"></div><span class="barlabel">3 · 12%</span></div></td></tr><tr><td class="k">PyPI</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:12%"></div><span class="barlabel">3 · 12%</span></div></td></tr></table>
 
 <h2>By engine verified on</h2>
-<table class="stat"><tr><td class="k">JavaScript (V8 RegExp)</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:88%"></div><span class="barlabel">21 · 88%</span></div></td></tr><tr><td class="k">Python (CPython re)</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:13%"></div><span class="barlabel">3 · 13%</span></div></td></tr></table>
+<table class="stat"><tr><td class="k">JavaScript (V8 RegExp)</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:88%"></div><span class="barlabel">22 · 88%</span></div></td></tr><tr><td class="k">Python (CPython re)</td><td class="barcell"><div class="barrow"><div class="barfill" style="width:12%"></div><span class="barlabel">3 · 12%</span></div></td></tr></table>
 
 <div class="cta">
-<a class="hot" href="./">Browse all 24 entries</a>
+<a class="hot" href="./">Browse all 25 entries</a>
 <a href="https://github.com/aurelio-nakamura/redos-db" rel="noopener">redos-db on GitHub</a>
 </div>
 
