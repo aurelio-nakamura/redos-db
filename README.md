@@ -59,6 +59,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`postcss`](https://github.com/postcss/postcss) | CVE‑2021‑23368 | quadratic | long whitespace run in an inline `sourceMappingURL` comment (`(.*)\s*\*/`) |
 | [`normalize-url`](https://github.com/sindresorhus/normalize-url) | CVE‑2021‑33502 | quadratic | long `#` run in a `data:` URL split between two lazy `.*?` groups |
 | [`cross-spawn`](https://github.com/moxystudio/node-cross-spawn) | CVE‑2024‑21538 | quadratic | long trailing backslash run in Windows arg escaping (`(\\*)$`) |
+| [`http-cache-semantics`](https://github.com/kornelski/http-cache-semantics) | CVE‑2022‑25881 | quadratic | whitespace‑only `Cache-Control` header split on `\s*,\s*` |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | 🐍 [`urllib3`](https://github.com/urllib3/urllib3) | CVE‑2021‑33503 | quadratic | URL authority with many `@` characters (Python `re`) |
 | 🐍 [`Django`](https://github.com/django/django) | CVE‑2019‑14232 | quadratic | long run of `&` in HTML truncated by `truncatewords_html` (Python `re`) |
