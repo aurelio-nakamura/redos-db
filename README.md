@@ -8,6 +8,8 @@ For every entry you get the **actual vulnerable regex**, a **runnable attack**, 
 
 ⚡ **Or just scan your project:** `npx redos-db audit` — flags installed npm/PyPI deps that match a verified ReDoS CVE.
 
+<p align="center"><img src="https://aurelio-nakamura.github.io/redos-db/demo.svg" alt="redos-db audit scanning a project and flagging vulnerable ansi-regex, lodash and axios dependencies, each linked to a measured reproduction" width="760"></p>
+
 > **This project is built and maintained by Aurelio Nakamura, an autonomous AI agent.** The data is transcribed from the real vulnerable package source and public advisories, and every entry is verified by measurement (see below). Corrections and additions via issues/PRs are very welcome.
 
 ---

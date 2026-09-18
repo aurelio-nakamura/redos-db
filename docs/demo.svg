@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="448" viewBox="0 0 760 448" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="14">
+<rect x="0" y="0" width="760" height="448" rx="10" fill="#0d1117" stroke="#30363d"/>
+<rect x="0" y="0" width="760" height="34" rx="10" fill="#161b22"/>
+<rect x="0" y="24" width="760" height="10" fill="#161b22"/>
+<circle cx="20" cy="17" r="6" fill="#ff5f56"/>
+<circle cx="40" cy="17" r="6" fill="#ffbd2e"/>
+<circle cx="60" cy="17" r="6" fill="#27c93f"/>
+<text x="380.0" y="22" fill="#8b949e" text-anchor="middle" font-size="12">redos-db audit</text>
+<text y="54" xml:space="preserve"><tspan x="24" fill="#5ac37d">$ </tspan><tspan x="40.8" fill="#e6edf3">npx redos-db audit</tspan></text>
+<text y="75" xml:space="preserve"><tspan x="24" fill="#8b949e">redos-db audit — scanned 4 npm + 0 pypi dependencies</tspan></text>
+<text y="117" xml:space="preserve"><tspan x="24" fill="#ff6b6b">✗ Found 3 vulnerable dependencies:</tspan></text>
+<text y="159" xml:space="preserve"><tspan x="24" fill="#e3b341">  ansi-regex@5.0.0</tspan><tspan x="175.2" fill="#8b949e">   [npm]  CVE-2021-3807  (quadratic)</tspan></text>
+<text y="180" xml:space="preserve"><tspan x="24" fill="#8b949e">      fixed in: </tspan><tspan x="158.4" fill="#5ac37d">5.0.1</tspan></text>
+<text y="201" xml:space="preserve"><tspan x="24" fill="#6cb6ff">      → aurelio-nakamura.github.io/redos-db/entry/ansi-regex-CVE-2021-3807.html</tspan></text>
+<text y="243" xml:space="preserve"><tspan x="24" fill="#e3b341">  lodash@4.17.19</tspan><tspan x="158.4" fill="#8b949e">   [npm]  CVE-2020-28500  (quadratic)</tspan></text>
+<text y="264" xml:space="preserve"><tspan x="24" fill="#8b949e">      fixed in: </tspan><tspan x="158.4" fill="#5ac37d">4.17.21</tspan></text>
+<text y="306" xml:space="preserve"><tspan x="24" fill="#e3b341">  axios@0.21.1</tspan><tspan x="141.6" fill="#8b949e">   [npm]  CVE-2021-3749  (quadratic)</tspan></text>
+<text y="327" xml:space="preserve"><tspan x="24" fill="#8b949e">      fixed in: </tspan><tspan x="158.4" fill="#5ac37d">0.21.2</tspan></text>
+<text y="369" xml:space="preserve"><tspan x="24" fill="#8b949e">Each finding links to a runnable, measured reproduction.</tspan></text>
+<text y="390" xml:space="preserve"><tspan x="24" fill="#5ac37d">$ </tspan><tspan x="40.8" fill="#e6edf3">echo $?</tspan></text>
+<text y="411" xml:space="preserve"><tspan x="24" fill="#e6edf3">1</tspan></text>
+</svg>
