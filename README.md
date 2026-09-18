@@ -57,6 +57,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`axios`](https://github.com/axios/axios) | CVE‑2021‑3749 | quadratic | long whitespace run ending in a non‑space in the internal `trim` (`\s*$`) |
 | [`debug`](https://github.com/debug-js/debug) | CVE‑2017‑16137 | quadratic | long whitespace run with no newline in the `%o` formatter (`\s*\n\s*`) |
 | [`postcss`](https://github.com/postcss/postcss) | CVE‑2021‑23368 | quadratic | long whitespace run in an inline `sourceMappingURL` comment (`(.*)\s*\*/`) |
+| [`normalize-url`](https://github.com/sindresorhus/normalize-url) | CVE‑2021‑33502 | quadratic | long `#` run in a `data:` URL split between two lazy `.*?` groups |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | 🐍 [`urllib3`](https://github.com/urllib3/urllib3) | CVE‑2021‑33503 | quadratic | URL authority with many `@` characters (Python `re`) |
 | 🐍 [`Django`](https://github.com/django/django) | CVE‑2019‑14232 | quadratic | long run of `&` in HTML truncated by `truncatewords_html` (Python `re`) |
