@@ -61,6 +61,7 @@ Crucially, each entry is verified **on the engine it actually shipped on**: npm 
 | [`cross-spawn`](https://github.com/moxystudio/node-cross-spawn) | CVE‑2024‑21538 | quadratic | long trailing backslash run in Windows arg escaping (`(\\*)$`) |
 | [`http-cache-semantics`](https://github.com/kornelski/http-cache-semantics) | CVE‑2022‑25881 | quadratic | whitespace‑only `Cache-Control` header split on `\s*,\s*` |
 | [`loader-utils`](https://github.com/webpack/loader-utils) | CVE‑2022‑37603 | quadratic | `[hash[hash…` run in `interpolateName` where `[^:\]]+` also matched `[` |
+| [`micromatch`](https://github.com/micromatch/micromatch) | CVE‑2024‑4067 | quadratic | long run of `{` in the brace‑detect probe `\{.*\}` before expansion |
 | 🐍 [`sqlparse`](https://github.com/andialbrecht/sqlparse) | CVE‑2021‑32839 | **exponential** | run of `CRLF` + tab in a stripped SQL comment (Python `re`) |
 | 🐍 [`urllib3`](https://github.com/urllib3/urllib3) | CVE‑2021‑33503 | quadratic | URL authority with many `@` characters (Python `re`) |
 | 🐍 [`Django`](https://github.com/django/django) | CVE‑2019‑14232 | quadratic | long run of `&` in HTML truncated by `truncatewords_html` (Python `re`) |
